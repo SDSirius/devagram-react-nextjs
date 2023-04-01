@@ -4,22 +4,23 @@ export default function InputPublico({
     imagem,
     tipo,
     texto,
-    valor="",
+    valor = "",
     exibirMensagemValidacao = false,
     mensagemValidacao = "",
     aoAlterarValor
 }) {
     return (
         <div className="inputPublicoContainer">
-            <div className="InputPublico">
-                <Image 
+            <div className="inputPublico">
+                <Image
                     src={imagem}
-                    alt="Imagem do campo"
-                    className="iconeInpuPublico"
+                    alt="imagem do campo"
+                    className="iconeInputPublico"
                     width={20}
                     height={20}
                 />
-                <input 
+                
+                <input
                     type={tipo}
                     placeholder={texto}
                     value={valor}
@@ -27,8 +28,7 @@ export default function InputPublico({
                 />
             </div>
 
-            {exibirMensagemValidacao && <p className="mensagemValidacao" >{mensagemValidacao}</p>}
+            {exibirMensagemValidacao && <p className="mensagemValidacao">{mensagemValidacao}</p>}
         </div>
-    )
-
+    );
 }

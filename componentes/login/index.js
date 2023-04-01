@@ -12,7 +12,7 @@ export default function Login() {
   const [senha, setSenha] = useState("");
 
     return (
-        <section className={'loginSection paginaPublica'} >
+        <section className={'paginaLogin paginaPublica'} >
             <div className="logoContainer">
               <Image 
                 src={imagemLogo}
@@ -24,30 +24,30 @@ export default function Login() {
 
             <div className="conteudoPaginaPublica">
                 <form>
-                <InputPublico 
-                    className="input"
-                    imagem={imagemEnvelope}
-                    textos="E-mail"
-                    tipo="email"
-                    aoAlterarValor={ e => setEmail(e.target.value)}
-                    valor={email}
-                  />
                   <InputPublico 
-                    imagem={imagemSenha}
-                    textos="Senha"
-                    tipo="password"
-                    aoAlterarValor={ e => setSenha(e.target.value)}
-                    valor={senha}
-                  />
+                      className="input"
+                      imagem={imagemEnvelope}
+                      textos="E-mail"
+                      tipo="email"
+                      aoAlterarValor={ e => setEmail(e.target.value)}
+                      valor={email}
+                    />
+                    <InputPublico 
+                      imagem={imagemSenha}
+                      textos="Senha"
+                      tipo="password"
+                      aoAlterarValor={ e => setSenha(e.target.value)}
+                      valor={senha}
+                    />
 
-                  <Botao 
-                    texto={"Login"}
-                    tipo="submit"
-                    desabilitado={false}
-                  />
+                    <Botao 
+                      texto={"Login"}
+                      tipo="submit"
+                      desabilitado={false}
+                    />
                 </form>
 
-                <div className="rodapeRotaPublica">
+                <div className="rodapePaginaPublica">
                   <p>Não Possui uma conta?</p>
                   <Link href="/cadastro">Faça seu cadastro gratis aqui!</Link>
                 </div>
