@@ -4,6 +4,8 @@ import Botao from '../../componentes/botao'
 import Link from "next/link";
 import { useState } from "react";
 import UploadImagem from '../../componentes/uploadimagen';
+import { validarConfirmaSenha, validarEmail, validarNome, validarSenha } from '../../utils/validadores';
+import UsuarioService from '../../services/UsuarioService';
 
 import imagemUsuario from '../../public/images/usuarioAtivo.svg';
 import imagemEnvelope from '../../public/images/envelope.svg';
@@ -11,14 +13,66 @@ import imagemChave from '../../public/images/chave.svg';
 import imagemLogo from '../../public/images/logo.svg';
 import imagemAvatar from '../../public/images/avatar.svg';
 
+const usuarioService = new UsuarioService();
 
 export default function Cadastro() {
 
     const [imagem, setImagem] = useState(null);
+    const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setConfirmaSenha] = useState("");
-    const [nome, setNome] = useState("");
+    const [ estaSubmetendo, setEstaSubmetendo] = useState(false);
+
+    const validarFormulario = () => {
+        return(
+            validarNome(nome)
+            && validarEmail(email)
+            && validarSenha(senha)
+            && validarConfirmaSenha(senha, confirmaSenha)
+
+        );
+    }
+
+    const aoSubmeter = async (e) => {
+        console.log('entrou na função submeter');
+        e.preventDefault();
+        if (!validarFormulario()) {
+            return;
+        }
+
+        setEstaSubmetendo(true);
+        console.log('ativou esta submetendo para true');
+
+        try{
+            const corpoReqCadastro = new FormData();
+            console.log("Iniciou o form data do cadastro");
+            corpoReqCadastro.append("nome", nome);
+            console.log("Catalogou o nome");
+            corpoReqCadastro.append("email", email);
+            console.log("Catalogou o email");
+            corpoReqCadastro.append("senha", senha);
+            console.log("Catalogou a senha");
+
+            if(imagem?.arquivo) {
+                corpoReqCadastro.append("file", imagem.arquivo);
+                console.log('adicionou a img pro [] do corpoCadastro');
+            }
+
+            await usuarioService.cadastro(corpoReqCadastro);
+            alert("Sucesso!");
+            console.log("Sucesso! enviou o form pro db");
+
+        } catch(error) {
+            console.log("Não enviou o form pro db");
+            alert(
+                "Erro ao cadastrar usuario." + error?.response?.data?.erro
+            )
+        }
+
+        setEstaSubmetendo(false);
+        console.log('voltou pra false o esta submetendo');
+    }
 
     return (
         <section className={`paginaCadastro paginaPublica`}>
@@ -29,10 +83,11 @@ export default function Cadastro() {
                     layout="fill"
                     className="logo"
                 />
+                
             </div>
-
+            
             <div className="conteudoPaginaPublica">
-                <form>
+                <form onSubmit={aoSubmeter}>
                     <UploadImagem
                         imagemPreviewClassName="avatar avatarPreview"
                         imagemPreview={imagem?.preview || imagemAvatar.src}
@@ -82,7 +137,9 @@ export default function Cadastro() {
                     <Botao
                         texto="Cadastrar"
                         tipo="submit"
-                        //desabilitado={!validarFormulario() || estaSubmetendo}
+                        desabilitado={!validarFormulario() || estaSubmetendo}
+                        onClick = {console.log("Clicou para enviar")}
+                        onSubmit = {console.log('submeteu')}
                     />
                 </form>
 
