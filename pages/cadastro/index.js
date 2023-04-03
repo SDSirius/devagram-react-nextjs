@@ -1,4 +1,4 @@
-import InputPublico from "../../componentes/inputPublico/";
+import InputPublico from "../../componentes/inputPublico"; 
 import Image from "next/image";
 import Botao from '../../componentes/botao'
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setConfirmaSenha] = useState("");
-    const [ estaSubmetendo, setEstaSubmetendo] = useState(false);
+    const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
     const validarFormulario = () => {
         return(
@@ -35,13 +35,12 @@ export default function Cadastro() {
     }
 
     const aoSubmeter = async (e) => {
-        console.log('entrou na função submeter');
         e.preventDefault();
         if (!validarFormulario()) {
-            return;
+           return;
         }
 
-        setEstaSubmetendo(true);
+         setEstaSubmetendo(true);
         console.log('ativou esta submetendo para true');
 
         try{
@@ -65,9 +64,12 @@ export default function Cadastro() {
 
         } catch(error) {
             console.log("Não enviou o form pro db");
+            console.log(error);
             alert(
                 "Erro ao cadastrar usuario." + error?.response?.data?.erro
             )
+            
+            
         }
 
         setEstaSubmetendo(false);
@@ -77,7 +79,7 @@ export default function Cadastro() {
     return (
         <section className={`paginaCadastro paginaPublica`}>
             <div className="logoContainer desktop">
-                <Image
+                <Image 
                     src={imagemLogo}
                     alt="logotipo"
                     layout="fill"
@@ -96,7 +98,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemUsuario}
-                        texto="Nome Completo"
+                        textos="Nome Completo"
                         tipo="text"
                         aoAlterarValor={e => setNome(e.target.value)}
                         valor={nome}
@@ -106,7 +108,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemEnvelope}
-                        texto="E-mail"
+                        textos="E-mail"
                         tipo="email"
                         aoAlterarValor={e => setEmail(e.target.value)}
                         valor={email}
@@ -116,7 +118,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemChave}
-                        texto="Senha"
+                        textos="Senha"
                         tipo="password"
                         aoAlterarValor={e => setSenha(e.target.value)}
                         valor={senha}
@@ -126,7 +128,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemChave}
-                        texto="Confirmar Senha"
+                        textos="Confirmar Senha"
                         tipo="password"
                         aoAlterarValor={e => setConfirmaSenha(e.target.value)}
                         valor={confirmaSenha}
@@ -137,9 +139,8 @@ export default function Cadastro() {
                     <Botao
                         texto="Cadastrar"
                         tipo="submit"
-                        desabilitado={!validarFormulario() || estaSubmetendo}
-                        onClick = {console.log("Clicou para enviar")}
-                        onSubmit = {console.log('submeteu')}
+                        manipularClique={() => console.log("teste1234")}
+                        // desabilitado={!validarFormulario() || estaSubmetendo}
                     />
                 </form>
 

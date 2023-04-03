@@ -4,7 +4,7 @@ export default class UsuarioService extends HttpService {
     async login(usuario, senha) {
 
     }
-    async cadastro() {
+    async cadastro(dados) {
         return this.post('/cadastro', dados);
     }
 }
