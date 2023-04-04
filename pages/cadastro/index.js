@@ -36,12 +36,14 @@ export default function Cadastro() {
 
     const aoSubmeter = async (e) => {
         e.preventDefault();
+        console.log("chamou aoSubmeter");
         if (!validarFormulario()) {
-           return;
+            console.log("não validou o form");
+            return;
         }
 
          setEstaSubmetendo(true);
-        console.log('ativou esta submetendo para true');
+        console.log('ativou estaSubmetendo para true');
 
         try{
             const corpoReqCadastro = new FormData();
@@ -59,15 +61,15 @@ export default function Cadastro() {
             }
 
             await usuarioService.cadastro(corpoReqCadastro);
-            alert("Sucesso!");
             console.log("Sucesso! enviou o form pro db");
+            alert("Sucesso!");
 
         } catch(error) {
             console.log("Não enviou o form pro db");
             console.log(error);
             alert(
                 "Erro ao cadastrar usuario." + error?.response?.data?.erro
-            )
+            );
             
             
         }
@@ -139,8 +141,7 @@ export default function Cadastro() {
                     <Botao
                         texto="Cadastrar"
                         tipo="submit"
-                        manipularClique={() => console.log("teste1234")}
-                        // desabilitado={!validarFormulario() || estaSubmetendo}
+                        desabilitado={!validarFormulario() || estaSubmetendo}
                     />
                 </form>
 

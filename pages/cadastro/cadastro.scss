@@ -3,7 +3,7 @@
         text-align: center;;
         position:relative;
         margin-bottom: 48px;
-        cursor: progress;
+        cursor: pointer;
 
         .avatarPreview {
             height:120px;
@@ -25,9 +25,7 @@
     }
 
     @media screen and (min-width : $desktopBreakpoint) {
-
         .rodapePaginaPublica {
-
             display:flex;
             justify-content: center;
 

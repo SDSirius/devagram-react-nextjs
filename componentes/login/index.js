@@ -20,23 +20,27 @@ export default function Login() {
   const validarFormulario = () =>{
     return (
       validarEmail(email)
-      && validarSenha(senha)
+      && validarSenha(senha)      
     );
   }
 
   const aoSubmeter = async (e) => {
     e.preventDefault();
+    console.log("Vai validar");
     if(!validarFormulario()){
-      return
+      console.log("Não foi possivel validar o formulario");
+      return;
     }
     setEstaSubmetendo(true);
-
+    console.log("Esta submetendo");
     try {
+      console.log("tentando chamar o usuarioservice passando os parametros user e pass");
       await usuarioService.login({
         login:email,
         senha
       });
     } catch (error) {
+      console.log(error);
       alert(
         "Erro ao realizar login: " + error?.responde?.data?.erro
         );
@@ -44,6 +48,7 @@ export default function Login() {
     }
 
     setEstaSubmetendo(false);
+    console.log("Não esta mais submetendo");
   }
   
   return (
@@ -82,8 +87,7 @@ export default function Login() {
                     texto={"Login"}
                     tipo="submit"
                     desabilitado={!validarFormulario() || estaSubmetendo}
-                    
-                  />
+                    />
               </form>
 
               <div className="rodapePaginaPublica">
