@@ -100,7 +100,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemUsuario}
-                        textos="Nome Completo"
+                        texto="Nome Completo"
                         tipo="text"
                         aoAlterarValor={e => setNome(e.target.value)}
                         valor={nome}
@@ -110,7 +110,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemEnvelope}
-                        textos="E-mail"
+                        texto="E-mail"
                         tipo="email"
                         aoAlterarValor={e => setEmail(e.target.value)}
                         valor={email}
@@ -120,7 +120,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemChave}
-                        textos="Senha"
+                        texto="Senha"
                         tipo="password"
                         aoAlterarValor={e => setSenha(e.target.value)}
                         valor={senha}
@@ -130,7 +130,7 @@ export default function Cadastro() {
 
                     <InputPublico
                         imagem={imagemChave}
-                        textos="Confirmar Senha"
+                        texto="Confirmar Senha"
                         tipo="password"
                         aoAlterarValor={e => setConfirmaSenha(e.target.value)}
                         valor={confirmaSenha}

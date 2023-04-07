@@ -18,7 +18,7 @@ export default function UploadImagem({
         aoSetarAReferencia(referenciaInput?.current);
     }, [referenciaInput?.current]);
 
-    const abrirSeletorArquivos = () =>{
+    const abrirSeletorArquivos = () => {
         referenciaInput?.current?.click();
     }
 
@@ -42,12 +42,13 @@ export default function UploadImagem({
     }
 
     return (
-        <div className={`uploadImagemContainer ${className}`} onClick={abrirSeletorArquivos}>
+        <div className={`uploadImagemContainer ${className}`} 
+        onClick={abrirSeletorArquivos}>
             {imagemPreview && (
                 <div className="imagemPreviewContainer">
                     <img 
                         src={imagemPreview}
-                        alt='imagemPreview'
+                        alt='imagem Preview'
                         className={imagemPreviewClassName}
                         />
                 </div>

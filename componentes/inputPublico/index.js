@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function InputPublico({
     imagem,
     tipo,
-    textos,
+    texto,
     valor = "",
     exibirMensagemValidacao = false,
     mensagemValidacao = "",
@@ -22,7 +22,7 @@ export default function InputPublico({
                 
                 <input
                     type={tipo}
-                    placeholder={textos}
+                    placeholder={texto}
                     value={valor}
                     onChange={aoAlterarValor}
                 />

@@ -42,7 +42,7 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       alert(
-        "Erro ao realizar login: " + error?.responde?.data?.erro
+        "Erro ao realizar login: " + error?.response?.data?.erro
         );
 
     }
@@ -66,7 +66,7 @@ export default function Login() {
               <form onSubmit={aoSubmeter}>
                 <InputPublico 
                     imagem={imagemEnvelope}
-                    textos="E-mail"
+                    texto="E-mail"
                     tipo="email"
                     aoAlterarValor={ e => setEmail(e.target.value)}
                     valor={email}
@@ -75,7 +75,7 @@ export default function Login() {
                   />
                   <InputPublico 
                     imagem={imagemSenha}
-                    textos="Senha"
+                    texto="Senha"
                     tipo="password"
                     aoAlterarValor={ e => setSenha(e.target.value)}
                     valor={senha}
