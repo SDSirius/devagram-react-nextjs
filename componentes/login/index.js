@@ -39,6 +39,7 @@ export default function Login() {
         login:email,
         senha
       });
+      alert(        "Sucesso"        );
     } catch (error) {
       console.log(error);
       alert(
