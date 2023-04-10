@@ -12,7 +12,7 @@ import imagemLogo from '../../public/images/logo.svg';
 
 const usuarioService = new UsuarioService();
 
-export default function Login() {
+export default function Login({afterAuth}) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [ estaSubmetendo, setEstaSubmetendo] = useState(false);
@@ -39,7 +39,11 @@ export default function Login() {
         login:email,
         senha
       });
-      alert(        "Sucesso"        );
+
+      if(afterAuth) {
+        afterAuth();
+      }
+
     } catch (error) {
       console.log(error);
       alert(
