@@ -5,12 +5,14 @@ import imagemLupa from '../../public/images/Lupa.svg';
 import Navegacao from './Navegacao';
 import ResultadoPesquisa from './ResultadoPesquisa';
 import UsuarioService from '../../services/UsuarioService';
+import { useRouter } from 'next/router';
 
 const usuarioService = new UsuarioService();
 
 export default function Cabecalho() {
     const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
     const [termoPesquisado, setTermoPesquisado] = useState('');
+    const router = useRouter();
 
     const aoPesquisar = async (e) => {
         setTermoPesquisado(e.target.value);
@@ -22,36 +24,21 @@ export default function Cabecalho() {
 
         try{
             const { data } = await usuarioService.pesquisar(termoPesquisado);
-            console.log(data);
+            setResultadoPesquisa(data);
 
         }catch(error) {
             alert('Erro ao pesquisar usuário. ' + error?.response?.data?.erro);
         }
-        
-        setResultadoPesquisa([
-            {
-                avatar:"",
-                nome:"Sérgio",
-                email:"sergiod398@gmail.com",
-                _id: "12345"
-            },
-            {
-                avatar:"",
-                nome:"Rubens",
-                email:"Rubao@gmail.com",
-                _id: "12346"
-            },
-            {
-                avatar:"",
-                nome:"Sabrina",
-                email:"Sassa@gmail.com",
-                _id: "12347"
-            }
-        ])
     }
 
     const aoclicarResutadoPesquisa = (id)=> {
-        console.log('aoclicarResutadoPesquisa', {id});
+        setResultadoPesquisa([]);
+        setTermoPesquisado('');
+        router.push(`/perfil/${id}`);
+    }
+
+    const redirectHome = ()=> {
+        router.push('/');
     }
 
     return(
@@ -59,6 +46,7 @@ export default function Cabecalho() {
             <div className='conteudoCabecalhoPrincipal'>
                 <div className='logoCabecalhoPricipal'>
                     <Image 
+                    onClick={redirectHome}
                     src={logoHorizontalImg}
                     alt='logo Devagram'
                     layout='fill'
