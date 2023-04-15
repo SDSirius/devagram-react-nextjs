@@ -15,11 +15,13 @@ export default function autorizado( Componente ) {
                 return null;
             }
 
+            const usuarioOn = usuarioService.obterInfoUsuarioOn();
+
             return (
                 <>
-                    <Cabecalho />
-                    <Componente {...props} />
-                    <Rodape />
+                    <Cabecalho usuarioOn={usuarioOn}/>
+                    <Componente usuarioOn={usuarioOn} {...props} />
+                    <Rodape usuarioOn={usuarioOn} />
                 </>
             );
         }

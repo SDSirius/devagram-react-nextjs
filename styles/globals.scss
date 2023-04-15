@@ -73,6 +73,20 @@ strong{
   font-family: $fontBold;
 }
 
+body {
+  @media screen and (min-width: $desktopBreakpoint){
+    background-color: $cinza5;
+    background-image: url('/images/imagemDeFundoDesktop.svg');
+  }
+}
+
+.largura40pctDesktop {
+  @media screen and (min-width : $desktopBreakpoint) {
+    width:40%;
+    margin:auto;
+  }
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../componentes/botao/botao.scss';
 @import '../styles/paginaPublica.scss';
@@ -80,7 +94,7 @@ strong{
 @import '../pages/cadastro/cadastro.scss';
 @import '../componentes/layout/cabecalho.scss';
 @import '../componentes/layout/rodape.scss';
-//@import '../componentes/feed/feed.scss';
+@import '../componentes/feed/feed.scss';
 //@import '../componentes/cabecalhoComAcoes/cabecalhoComAcoes.scss';
 //@import '../pages/perfil/perfil.scss';
 //@import '../pages/publicacao/publicacao.scss';

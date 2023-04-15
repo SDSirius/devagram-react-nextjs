@@ -1,8 +1,9 @@
 import autorizado from "../../hoc/autorizado";
+import { Feed } from "../feed";
 
-function Home() {
+function Home({usuarioOn}) {
     return (
-        <h1>Home</h1>
+        <Feed usuarioOn={usuarioOn}/>
     );
 }
 
