@@ -5,7 +5,7 @@ import UsuarioService from "../services/UsuarioService";
 
 const usuarioService = new UsuarioService();
 export default function Index() {
-  const [estaAuth, setEstaAuth] = useState(false);
+  const [estaAuth, setEstaAuth] = useState(null);
 
   useEffect(() => {
     setEstaAuth(
@@ -13,6 +13,10 @@ export default function Index() {
     );
   }, [])
 
+  if (estaAuth === null) {
+    return null;
+  } 
+  
   if(estaAuth){
     return <Home />;
   }

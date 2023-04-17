@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import Postagem from './Postagem';
+import FeedService from '../../services/FeedService';
+
+const feedService = new FeedService();
 
 export function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
 
-    useEffect(() => {
+    useEffect( async () => {
         console.log('carregar o feed');
+        const { data } = await feedService.loadPosts();
         setListaPost([
             {
             id:"1",

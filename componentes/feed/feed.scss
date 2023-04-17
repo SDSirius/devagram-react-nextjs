@@ -4,7 +4,6 @@
     margin-top: 16px;
 
     .postagem {
-        
         .avatar {
             height: 32px;
             width: 32px;
@@ -101,5 +100,24 @@
 
     @media screen and (min-width: $desktopBreakpoint){
         padding-top:8px;
+
+        .postagem {
+            .avatar{
+                width: 42px;
+                height: 42px;
+            }
+            .containerFazerComentario {
+                .btnPublicacao {
+                    background-color: transparent;
+                    color: $corPrimaria2;
+                    outline: none;
+                    border: none;
+                    font-size: 12px;
+                    font-family: $fontBold;
+                    cursor: pointer;
+                }
+
+            }
+        }
     }
 }
