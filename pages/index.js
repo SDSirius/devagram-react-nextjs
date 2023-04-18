@@ -11,7 +11,7 @@ export default function Index() {
     setEstaAuth(
       usuarioService.estaAuth()
     );
-  }, [])
+  }, []);
 
   if (estaAuth === null) {
     return null;

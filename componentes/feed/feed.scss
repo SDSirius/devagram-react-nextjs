@@ -106,14 +106,26 @@
                 width: 42px;
                 height: 42px;
             }
+
+            .rodapePost {
+
+                .acoesPost{
+                    > img, span{
+                        margin-right: 5px !important;
+                        cursor: pointer;
+                    }
+                }
+            }
+
             .containerFazerComentario {
+                margin-top:12px;
+
                 .btnPublicacao {
                     background-color: transparent;
                     color: $corPrimaria2;
                     outline: none;
                     border: none;
-                    font-size: 12px;
-                    font-family: $fontBold;
+                    font-size: 12px;                    
                     cursor: pointer;
                 }
 

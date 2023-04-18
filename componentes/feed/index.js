@@ -7,9 +7,9 @@ const feedService = new FeedService();
 export function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
 
-    useEffect( async () => {
-        console.log('carregar o feed');
+    useEffect(async () => {
         const { data } = await feedService.loadPosts();
+        console.log(data);
         setListaPost([
             {
             id:"1",
@@ -60,9 +60,9 @@ export function Feed ({usuarioOn}) {
         <div className='feedContainer largura40pctDesktop'>
             {listaPost.map(dataPost => (
                 <Postagem 
-                key={dataPost.id} 
-                {...dataPost}
-                usuarioOn={usuarioOn}
+                    key={dataPost.id} 
+                    {...dataPost}
+                    usuarioOn={usuarioOn}
                 />
             ))}
         </div>
