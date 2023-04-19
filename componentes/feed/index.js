@@ -11,6 +11,7 @@ export function Feed ({usuarioOn}) {
         await feedService.loadPosts();
     
     useEffect(() => {
+        getFeed();
         const { data } = getFeed();
         console.log(data);
         setListaPost([]);
