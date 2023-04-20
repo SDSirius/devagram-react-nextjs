@@ -1,9 +1,9 @@
 import HttpService from "./HttpService";
 
 export default class FeedService extends HttpService {
-    async loadPosts(idUsuario){
+    async loadPosts(idUsuario) {
         let url = '/feed';
-        if (idUsuario){
+        if (idUsuario) {
             url += `?id=${idUsuario}`;
         }
 

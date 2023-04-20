@@ -4,7 +4,7 @@ import FeedService from '../../services/FeedService';
 
 const feedService = new FeedService();
 
-export function Feed ({usuarioOn}) {
+export default function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
 
     const getFeed = async () =>
@@ -26,7 +26,8 @@ export function Feed ({usuarioOn}) {
                     {...dataPost}
                     usuarioOn={usuarioOn}
                 />
-            ))}
+            ))
+        }
         </div>
-    );
+    )
 }

@@ -1,6 +1,6 @@
 import Avatar from "../avatar";
 
-export function FazerComentario(usuarioOn){
+export function FazerComentario({usuarioOn}){
     return(
         <div className="containerFazerComentario">
             <Avatar src={usuarioOn.avatar}/>

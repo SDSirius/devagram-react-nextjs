@@ -5,7 +5,7 @@ import UsuarioService from "../services/UsuarioService"
 
 const usuarioService = new UsuarioService();
 
-export default function autorizado( Componente ) {
+export default function autorizado(Componente) {
     return (props) => {
         const router = useRouter();
 

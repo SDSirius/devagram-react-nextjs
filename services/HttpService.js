@@ -8,7 +8,7 @@ export default class HttpService {
 
         this.axios.interceptors.request.use( (config) => {
             const token = localStorage.getItem('token');
-            if(token) {
+            if (token) {
                 config.headers.Authorization = 'Bearer '+ token
             }
 
@@ -16,8 +16,8 @@ export default class HttpService {
         });
     }
 
-    post(url, data){
-        return this.axios.post(url, data);        
+    post(url, data) {
+        return this.axios.post(url, data);
     }
     get(url) {
         return this.axios.get(url);

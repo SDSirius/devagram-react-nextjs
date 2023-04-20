@@ -21,15 +21,15 @@ export default class UsuarioService extends HttpService {
         return this.post('/cadastro', dados);
     }
 
-    estaAuth(){
+    estaAuth() {
         return localStorage.getItem('token') !== null;
     }
 
     async pesquisar(termoPesquisa) {
-        return this.get('/pesquisa?filtro=' + termoPesquisa);
+        return this.get(`/pesquisa?filtro=${termoPesquisa}`);
     }
 
-    obterInfoUsuarioOn (){
+    obterInfoUsuarioOn() {
         return {
             id: localStorage.getItem('id'),
             nome: localStorage.getItem('nome'),

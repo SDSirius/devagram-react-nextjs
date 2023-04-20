@@ -49,10 +49,7 @@ export default function Postagem({
             </Link>
 
             <div className="fotoPost">
-                <img 
-                src={fotoPost}
-                alt="Foto do Post"
-                />
+                <img src={fotoPost} alt="Foto do Post"/>
             </div>
 
             <div className="rodapePost">
@@ -71,8 +68,9 @@ export default function Postagem({
                         height={20}
                         onClick={() => setShowInsertComment(!showInsertComment)}
                     />
+
                     <span className="qtdLikes">
-                        curtido por <strong> X pessoas</strong>
+                        Curtido por <strong> X pessoas</strong>
                     </span>
 
                 </div>
