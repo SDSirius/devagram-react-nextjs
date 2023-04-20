@@ -11,6 +11,7 @@ export default function Index() {
     setEstaAuth(
       usuarioService.estaAuth()
     );
+    console.log("useEffect do pages/index");
   }, []);
 
   if (estaAuth === null) {
