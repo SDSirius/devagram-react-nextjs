@@ -6,13 +6,15 @@ const feedService = new FeedService();
 
 export default function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
-
-    const getFeed = async () =>
+    const getFeed = async () =>{
         await feedService.loadPosts();
+    }
     
     useEffect(() => {
-        getFeed();
-        const { data } = getFeed();
+        console.log(getFeed());
+        console.log("iniciando o useEffect do feed Index");
+        const { data } =  getFeed();
+        console.log("capturando o data  usando o getFeed");
         console.log(data);
         setListaPost([]);
     },[usuarioOn]);
