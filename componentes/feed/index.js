@@ -11,9 +11,9 @@ export default function Feed ({usuarioOn}) {
     }
     
     useEffect(() => {
-        console.log(getFeed());
+        console.log(getFeed);
         console.log("iniciando o useEffect do feed Index");
-        const { data } =  getFeed();
+        const { data } =  getFeed;
         console.log("capturando o data  usando o getFeed");
         console.log(data);
         setListaPost([]);
