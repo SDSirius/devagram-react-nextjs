@@ -10,6 +10,7 @@ export default function Feed ({usuarioOn}) {
 
     async function fetchData() {
         const getFeed = await feedService.loadPosts();
+        console.log(getFeed);
         setData(getFeed.data);
     }
     
@@ -19,7 +20,7 @@ export default function Feed ({usuarioOn}) {
         console.log("iniciando o useEffect do feed Index");
         const { data } =  setData;
         console.log("capturando o data  usando o getFeed");
-        console.log(data);
+        console.log({data});
     },[usuarioOn]);
     
     return(
