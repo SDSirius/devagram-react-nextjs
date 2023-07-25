@@ -6,23 +6,41 @@ const feedService = new FeedService();
 
 export default function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
-    const [data, setData] = useState([]);
-
-    async function fetchData() {
-        const getFeed = await feedService.loadPosts();
-        console.log(getFeed);
-        setData(getFeed.data);
-    }
+    
     
     useEffect(() => {
-        setListaPost([]);
-        fetchData();
-        console.log("iniciando o useEffect do feed Index");
-        const { data } =  setData;
-        console.log("capturando o data  usando o getFeed");
-        console.log({data});
-    },[usuarioOn]);
-    
+        const pegarFeed = async ()=> {
+            setListaPost([]);  
+            const { data } = await feedService.loadPosts();
+                        
+            if (data.length > 0) {
+                const formatedPosts = data.map((postagem) => (
+                    
+                    {
+                        id: postagem._id,
+                        usuario: {
+                            id: postagem.idUser,
+                            nome: postagem.usuario.nome,
+                            avatar: postagem.usuario.avatar
+                        },
+                        fotoPost: postagem.foto,
+                        descricao:postagem.descricao,
+                        curtidas: postagem.likes,
+                        comment: postagem.comentarios.map(c => ({
+                            nome: c.nome,
+                            mensagem: c.comentario
+                        })),
+                    }));
+                setListaPost(formatedPosts);    
+            } else{
+                setListaPost([]);
+            }
+        };
+        pegarFeed();    
+        },[usuarioOn]);
+        if (!listaPost.length){
+            return null;
+        }    
     return(
 
         <div className='feedContainer largura40pctDesktop'>
