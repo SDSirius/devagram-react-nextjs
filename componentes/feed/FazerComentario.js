@@ -12,18 +12,20 @@ export function FazerComentario({usuarioOn, comentar}){
         setRows(inputValue.length > 0 ? 2 : 1);
     }
 
-    const onEnter = (e) => {
+    const onKey = (e) => {
         if (e.key === 'Enter'){
             commentHandle()
         }    
     }
 
-    const commentHandle =  () => {
+    const commentHandle = () => {
         if (comentario.trim().length === 0 || !comentar){
             return;
         }
         comentar(comentario);
     }
+
+    
 
     return(
         <div className="containerFazerComentario">
@@ -31,7 +33,7 @@ export function FazerComentario({usuarioOn, comentar}){
             <textarea 
                 rows={rows}
                 onChange={onTyping}
-                onKeyDown={onEnter}
+                onKeyDown={onKey}
                 value={comentario}
                 placeholder="Adicionar Comentário">
             </textarea>
@@ -39,6 +41,7 @@ export function FazerComentario({usuarioOn, comentar}){
             <button
                 type="button"
                 className="btnPublicacao desktop"
+                onClick={commentHandle}
             >
                 Publicar
             </button>

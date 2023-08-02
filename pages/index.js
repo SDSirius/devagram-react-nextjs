@@ -15,6 +15,7 @@ export default function Index() {
   }, []);
 
   if (estaAuth === null) {
+    console.log("autenticação falhou")
     return null;
   } 
   

@@ -8,36 +8,96 @@ import imgLiked from '../../public/images/curtido.svg';
 import imgComent from '../../public/images/comentarioCinza.svg';
 import imgComentActicve from '../../public/images/comentarioAtivo.svg';
 import { FazerComentario } from "./FazerComentario";
+import FeedService from '../../services/FeedService';
 
 const descriptionLimitLength = 85;
+const feedService = new FeedService();
 
 export default function Postagem({
+    id,
     usuario,
     fotoPost,
     descricao,
-    comments,
-    usuarioOn
+    comment,
+    usuarioOn,
+    curtidas
 }) {
+    const [likesPost, setLikesPost] = useState (curtidas);
+    const [commentsPosts, setCommentsPosts] = useState(comment);
     const [showInsertComment, setShowInsertComment]=useState(false);
     const [desclengthNow, setDesclengthNow] = useState(
         descriptionLimitLength
     );
 
+    const lengthBiggerLimit = () => {
+        return descricao.length > desclengthNow;
+    }
+    
     const showFullDesc = () =>{
         setDesclengthNow(Number.MAX_SAFE_INTEGER);
     }
     
-    const legthBiggerLimit = () => {
-        return descricao.length > desclengthNow;
-    }
-
     const obterDescricao = () => {
         let mensagem = descricao.substring(0,desclengthNow);
-        if (legthBiggerLimit()) {
+        if (lengthBiggerLimit()) {
             mensagem += "...";
         }
         return mensagem;
     }
+    const getImgComent = () =>{
+        return showInsertComment
+        ?imgComentActicve
+        :imgComent;
+    }
+
+    const comentar = async (comentario) => {
+        console.log(`fazer comentario ${comentario}`);
+        try {
+            await feedService.addComment(id, comentario);
+            setShowInsertComment(false);
+            setCommentsPosts([
+                ...commentsPosts,
+                {
+                    nome: usuarioOn.nome,
+                    mensagem:comentario
+                }
+            ]);
+        }catch (e){
+            alert(`erro ao fazer comentario! ${e?.response?.data?.erro}`);
+        }
+
+        return Promise.resolve(true);
+    }
+    
+    const loggedUserLiked = () => {
+        return likesPost.includes(usuarioOn.id);
+    }
+
+    const alterLike = async () => {
+        try{
+            await feedService.alterLike(id);
+            if (loggedUserLiked()) {
+                setLikesPost(
+                    likesPost.filter(idusersLiked => idusersLiked !== usuarioOn.id)
+                );
+            }else{
+                setLikesPost([
+                    ...likesPost,
+                    usuarioOn.id
+                ])
+            }
+
+        }catch (e) {
+            alert(`erro ao curtir! ${e?.response?.data?.erro}`);
+        }
+    }
+
+    const getImgLike = () =>{
+        return loggedUserLiked()
+        ?imgLiked
+        :imgLike;
+    }
+
     
     return (
         <div className="postagem">
@@ -55,14 +115,14 @@ export default function Postagem({
             <div className="rodapePost">
                 <div className="acoesPost">
                     <Image
-                        src={imgLike}
+                        src={getImgLike()}
                         alt="icone Curtir"
                         width={20}
                         height={20}
-                        onClick={() => console.log('curtiu')}
+                        onClick={alterLike}
                     />
                     <Image
-                        src={imgComent}
+                        src={getImgComent()}
                         alt="icone comentar"
                         width={20}
                         height={20}
@@ -70,7 +130,7 @@ export default function Postagem({
                     />
 
                     <span className="qtdLikes">
-                        Curtido por <strong> X pessoas</strong>
+                        Curtido por <strong> {likesPost.length} pessoas</strong>
                     </span>
 
                 </div>
@@ -79,7 +139,7 @@ export default function Postagem({
                     <strong className="nomeUsuario">{usuario.nome}</strong>
                     <p className='descricao'>
                         {obterDescricao()}
-                        {legthBiggerLimit() &&(
+                        {lengthBiggerLimit() &&(
                             <span 
                                 onClick={showFullDesc}
                                 className='showFullDesc' >
@@ -90,17 +150,17 @@ export default function Postagem({
                 </div>
 
                 <div className="comentsPost">
-                    {comments.map((comment, i) => (
+                    {commentsPosts.map((comments, i) => (
                         <div className="comentario" key={i}>
-                            <strong className="nomeUsuario">{comment.nome}</strong>
-                            <p className='descricao'>{comment.mensagem}</p>
+                            <strong className="nomeUsuario">{comments.nome}</strong>
+                            <p className='descricao'>{comments.mensagem}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             {showInsertComment &&
-                <FazerComentario usuarioOn={usuarioOn} />
+                <FazerComentario comentar={comentar} usuarioOn={usuarioOn} />
             }
         </div>
     );
