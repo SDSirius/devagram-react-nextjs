@@ -6,9 +6,7 @@ const feedService = new FeedService();
 
 export default function Feed ({usuarioOn}) {
     const [listaPost, setListaPost] = useState([]);
-    console.log(listaPost);
     useEffect(() => {
-        console.log(listaPost);
         const pegarFeed = async ()=> {
             setListaPost([]);  
             const { data } = await feedService.loadPosts();

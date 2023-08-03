@@ -51,7 +51,6 @@ export default function Postagem({
     }
 
     const comentar = async (comentario) => {
-        console.log(`fazer comentario ${comentario}`);
         try {
             await feedService.addComment(id, comentario);
             setShowInsertComment(false);

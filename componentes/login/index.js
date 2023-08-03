@@ -26,15 +26,11 @@ export default function Login({afterAuth}) {
 
   const aoSubmeter = async (e) => {
     e.preventDefault();
-    console.log("Vai validar");
     if(!validarFormulario()){
-      console.log("Não foi possivel validar o formulario");
       return;
     }
     setEstaSubmetendo(true);
-    console.log("Esta submetendo");
     try {
-      console.log("tentando chamar o usuarioservice passando os parametros user e pass");
       await usuarioService.login({
         login:email,
         senha
@@ -53,7 +49,6 @@ export default function Login({afterAuth}) {
     }
 
     setEstaSubmetendo(false);
-    console.log("Não esta mais submetendo");
   }
   
   return (

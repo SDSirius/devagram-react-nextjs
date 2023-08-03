@@ -23,12 +23,9 @@ export default function UploadImagem({
     }
 
     const aoAlterarImagem = () =>{
-        console.log('alterar')
-
         if(!referenciaInput?.current?.files?.length ){
            return;
         }
-
         const arquivo = referenciaInput?.current?.files[0];
 
         const leitorDoc = new FileReader();

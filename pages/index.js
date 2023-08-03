@@ -8,14 +8,12 @@ export default function Index() {
   const [estaAuth, setEstaAuth] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect do pages/index");
     setEstaAuth(
       usuarioService.estaAuth()
     );
   }, []);
 
   if (estaAuth === null) {
-    console.log("autenticação falhou")
     return null;
   } 
   

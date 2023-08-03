@@ -36,46 +36,31 @@ export default function Cadastro() {
 
     const aoSubmeter = async (e) => {
         e.preventDefault();
-        console.log("chamou aoSubmeter");
         if (!validarFormulario()) {
-            console.log("não validou o form");
             return;
         }
-
          setEstaSubmetendo(true);
-        console.log('ativou estaSubmetendo para true');
 
         try{
             const corpoReqCadastro = new FormData();
-            console.log("Iniciou o form data do cadastro");
             corpoReqCadastro.append("nome", nome);
-            console.log("Catalogou o nome");
             corpoReqCadastro.append("email", email);
-            console.log("Catalogou o email");
             corpoReqCadastro.append("senha", senha);
-            console.log("Catalogou a senha");
 
             if(imagem?.arquivo) {
                 corpoReqCadastro.append("file", imagem.arquivo);
-                console.log('adicionou a img pro [] do corpoCadastro');
             }
 
             await usuarioService.cadastro(corpoReqCadastro);
-            console.log("Sucesso! enviou o form pro db");
             alert("Sucesso!");
 
         } catch(error) {
-            console.log("Não enviou o form pro db");
             console.log(error);
             alert(
                 "Erro ao cadastrar usuario." + error?.response?.data?.erro
             );
-            
-            
         }
-
         setEstaSubmetendo(false);
-        console.log('voltou pra false o esta submetendo');
     }
 
     return (
