@@ -4,20 +4,22 @@ import FeedService from '../../services/FeedService';
 
 const feedService = new FeedService();
 
-export default function Feed ({usuarioOn}) {
+export default function Feed ({usuarioOn, idUser}) {
     const [listaPost, setListaPost] = useState([]);
+    
+
     useEffect(() => {
+        setListaPost([]);  
         const pegarFeed = async ()=> {
-            setListaPost([]);  
-            const { data } = await feedService.loadPosts();
-                        
+            const { data } = await feedService.loadPosts(idUser);
+
             if (data.length > 0) {
                 const formatedPosts = data.map((postagem) => ({
                         id: postagem._id,
                         usuario: {
                             id: postagem.idUser,
-                            nome: postagem.usuario.nome,
-                            avatar: postagem.usuario.avatar
+                            nome: postagem.usuario?.nome,
+                            avatar: postagem.usuario?.avatar
                         },
                         fotoPost: postagem.foto,
                         descricao:postagem.descricao,
@@ -27,18 +29,17 @@ export default function Feed ({usuarioOn}) {
                             mensagem: c.comentario
                         })),
                     }));
-                setListaPost(formatedPosts);    
-            } else{
-                setListaPost([]);
-            }
-        };
-        pegarFeed();    
-        },[usuarioOn]);
+                    setListaPost(formatedPosts);    
+                } else{
+                    setListaPost([]);
+                }
+            };
+            pegarFeed();    
+        },[usuarioOn, idUser]);
         if (!listaPost.length){
             return null;
         }    
     return(
-
         <div className='feedContainer largura40pctDesktop'>
             {listaPost.map((dataPost) => (
                 <Postagem 
@@ -47,6 +48,7 @@ export default function Feed ({usuarioOn}) {
                     usuarioOn={usuarioOn}
                 />
             ))
+                        
         }
         </div>
     )

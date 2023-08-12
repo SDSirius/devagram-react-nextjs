@@ -14,11 +14,22 @@ export default class UsuarioService extends HttpService {
         if(usuario.data.avatar){
             localStorage.setItem("avatar", usuario.data.avatar);
         }
+    }
 
+    async logout(){
+        localStorage.removeItem("nome");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("avatar");
     }
 
     async cadastro(dados) {
         return this.post('/cadastro', dados);
+    }
+    
+    async update (dados){
+        return this.put('/usuario', dados);
     }
 
     estaAuth() {
@@ -27,6 +38,14 @@ export default class UsuarioService extends HttpService {
 
     async pesquisar(termoPesquisa) {
         return this.get(`/pesquisa?filtro=${termoPesquisa}`);
+    }
+
+    async getProfile (idUser){
+        return this.get(`/pesquisa?id=${idUser}`);
+    }
+
+    async alterFollow (idUser){
+        return this.put(`/follow?id=${idUser}`)
     }
 
     obterInfoUsuarioOn() {

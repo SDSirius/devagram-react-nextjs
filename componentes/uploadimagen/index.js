@@ -22,12 +22,25 @@ export default function UploadImagem({
         referenciaInput?.current?.click();
     }
 
-    const aoAlterarImagem = () =>{
+    const aoAlterarImagem = async () =>{
         if(!referenciaInput?.current?.files?.length ){
            return;
         }
         const arquivo = referenciaInput?.current?.files[0];
+        getImgUrlAndUpdateState(arquivo);
 
+    }
+
+
+    const releasingImage = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0){
+            const arquivo = e.dataTransfer.files[0];
+            getImgUrlAndUpdateState(arquivo);
+        }
+    }
+
+    const getImgUrlAndUpdateState = (arquivo)  => {
         const leitorDoc = new FileReader();
         leitorDoc.readAsDataURL(arquivo);
         leitorDoc.onloadend =() => {
@@ -40,7 +53,10 @@ export default function UploadImagem({
 
     return (
         <div className={`uploadImagemContainer ${className}`} 
-        onClick={abrirSeletorArquivos}>
+        onClick={abrirSeletorArquivos}
+        onDragOver={e => e.preventDefault()}
+        onDrop={releasingImage}
+        >
             {imagemPreview && (
                 <div className="imagemPreviewContainer">
                     <img 

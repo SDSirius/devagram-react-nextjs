@@ -87,6 +87,19 @@ body {
   }
 }
 
+.linhaDivisoria{
+  margin: 0;
+  border: none;
+  background-color: $cinza1;
+  height: 1px;
+
+  @media screen and (min-width : $desktopBreakpoint) {
+    margin: 0 auto;
+    width: 85%;
+  }
+
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../componentes/botao/botao.scss';
 @import '../styles/paginaPublica.scss';
@@ -97,5 +110,5 @@ body {
 @import '../componentes/feed/feed.scss';
 @import '../componentes/cabecalhoComAcoes/cabecalhoComAcoes.scss';
 @import '../pages/perfil/perfil.scss';
-//@import '../pages/publicacao/publicacao.scss';
+@import '../pages/publicacao/publicacao.scss';
 //@import '../componentes/loading/loading.scss';
