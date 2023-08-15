@@ -15,7 +15,7 @@ const feedService = new FeedService();
 
 export default function Postagem({
     id,
-    usuario,
+    usuario: idUser,
     fotoPost,
     descricao,
     comment,
@@ -100,10 +100,10 @@ export default function Postagem({
     
     return (
         <div className="postagem">
-            <Link href={`/perfil/${usuario.id}`}>
+            <Link href={`/perfil/${idUser.id}`}>
                 <section className="cabecalhoPost">
-                    <Avatar src={usuario.avatar}/>
-                    <strong>{usuario.nome}</strong>
+                    <Avatar src={idUser.avatar}/>
+                    <strong>{idUser.nome}</strong>
                 </section>
             </Link>
 
@@ -135,7 +135,7 @@ export default function Postagem({
                 </div>
 
                 <div className="descricaoPost">
-                    <strong className="nomeUsuario">{usuario.nome}</strong>
+                    <strong className="nomeUsuario">{idUser.nome}</strong>
                     <p className='descricao'>
                         {obterDescricao()}
                         {lengthBiggerLimit() &&(

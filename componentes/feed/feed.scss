@@ -34,7 +34,7 @@
         }
         .rodapePost {
             padding: 5px 16px;
-            
+                       
             strong.nomeUsuario{
                 font-size: 12px;
                 float: left;
@@ -77,8 +77,12 @@
                 }
             }
 
+            .comentsPost{
+                max-height: 100px;
+                overflow-y: auto; 
+            }
+
             // .descricaoPost {}
-            // .comentsPost {}
         }
         .containerFazerComentario {
             display:flex;

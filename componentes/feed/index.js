@@ -18,8 +18,8 @@ export default function Feed ({usuarioOn, idUser}) {
                         id: postagem._id,
                         usuario: {
                             id: postagem.idUser,
-                            nome: postagem.usuario?.nome,
-                            avatar: postagem.usuario?.avatar
+                            avatar: postagem.usuario?.avatar,
+                            nome: postagem.usuario?.nome
                         },
                         fotoPost: postagem.foto,
                         descricao:postagem.descricao,

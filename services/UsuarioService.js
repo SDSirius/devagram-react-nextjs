@@ -40,12 +40,12 @@ export default class UsuarioService extends HttpService {
         return this.get(`/pesquisa?filtro=${termoPesquisa}`);
     }
 
-    async getProfile (idUser){
-        return this.get(`/pesquisa?id=${idUser}`);
+    async getProfile (idUsuario){
+        return this.get(`/pesquisa?id=${idUsuario}`);
     }
 
-    async alterFollow (idUser){
-        return this.put(`/follow?id=${idUser}`)
+    async alterFollow (id){
+        return this.put(`/follow?id=${id}`)
     }
 
     obterInfoUsuarioOn() {

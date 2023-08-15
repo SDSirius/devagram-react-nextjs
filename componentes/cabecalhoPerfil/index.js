@@ -15,8 +15,8 @@ export default function CabecalhoPerfil({
     isPersonalProfile
 })  {
 
-    const [following, setFollowing] = useState( false);
-    const [followersAmount, setFollowersAmount] = useState(0);
+    const [seguindo, setSeguindo] = useState( false);
+    const [quantidadeSeguidores, setQuantidadeSeguidores] = useState(0);
     const router = useRouter();
 
 
@@ -24,8 +24,8 @@ export default function CabecalhoPerfil({
         if (!user){
             return;
         }
-        setFollowing(user.followingThisUser);
-        setFollowersAmount(user.followers);
+        setSeguindo(user.segueEsseUsuario);
+        setQuantidadeSeguidores(user.seguidores);
     
     },[user])
 
@@ -34,7 +34,7 @@ export default function CabecalhoPerfil({
             return "Editar Petrfil";
         }
 
-        if ( following ) {
+        if ( seguindo ) {
             return 'Deixar de Seguir';
         }
 
@@ -42,7 +42,7 @@ export default function CabecalhoPerfil({
     }
 
     const getBtnColor = () => {
-        if ( following || isPersonalProfile ) {
+        if ( seguindo || isPersonalProfile ) {
             return 'invertido';
         }
 
@@ -55,13 +55,13 @@ export default function CabecalhoPerfil({
         }
         try{
             await usuarioService.alterFollow(user._id);
-            setFollowersAmount(
-                following 
-                    ? (followersAmount - 1)
-                    : (followersAmount + 1)
+            setQuantidadeSeguidores(
+                seguindo 
+                    ? (quantidadeSeguidores - 1)
+                    : (quantidadeSeguidores + 1)
 
             );
-            setFollowing(!following);
+            setSeguindo(!seguindo);
         }catch(error){
             alert(`Erro no Follow/Unfollow: ${error}`)
         }
@@ -114,7 +114,7 @@ export default function CabecalhoPerfil({
                         </div>
 
                         <div className="status">
-                            <strong>{followersAmount}</strong>
+                            <strong>{quantidadeSeguidores}</strong>
                             <span>Seguidores</span>
                         </div>
 

@@ -11,12 +11,12 @@ function Perfil( {usuarioOn}) {
     const [user, setUser ] = useState({});
     const router = useRouter();
 
-    const getProfile = async (idUser) => {
+    const getProfile = async (usuario) => {
         try{
             const { data } = await usuarioService.getProfile(
                 isPersonalProfile()
                 ? usuarioOn.id
-                : idUser
+                : usuario
             );
             return data;
         }catch (erro){

@@ -1,10 +1,10 @@
 import HttpService from "./HttpService";
 
 export default class FeedService extends HttpService {
-    async loadPosts(idUser) {
+    async loadPosts(idUsuario) {
         let url = '/feed';
-        if (idUser) {
-            url += `?id=${idUser}`;
+        if (idUsuario) {
+            url += `?id=${idUsuario}`;
         }
         return this.get(url);
     }
