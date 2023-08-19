@@ -10,18 +10,18 @@ export default function autorizado(Componente) {
         const router = useRouter();
 
         if (typeof window !== 'undefined'){
-            if (!usuarioService.estaAuth()){
+            if (!usuarioService.estaAutenticado()){
                 router.replace('/');
                 return null;
             }
-
-            const usuarioOn = usuarioService.obterInfoUsuarioOn();
-
+            
+            const usuarioLogado = usuarioService.obterInfousuarioLogado();
+            
             return (
                 <>
-                    <Cabecalho usuarioOn={usuarioOn}/>
-                    <Componente usuarioOn={usuarioOn} {...props} />
-                    <Rodape usuarioOn={usuarioOn} />
+                    <Cabecalho usuarioLogado={usuarioLogado}/>
+                    <Componente usuarioLogado={usuarioLogado} {...props} />
+                    <Rodape usuarioLogado={usuarioLogado} />
                 </>
             );
         }

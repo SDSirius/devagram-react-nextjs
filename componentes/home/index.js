@@ -1,9 +1,9 @@
 import autorizado from "../../hoc/autorizado";
 import Feed from "../feed";
 
-function Home({usuarioOn}) {
+function Home({usuarioLogado}) {
     return (
-        <Feed usuarioOn={usuarioOn}/>
+        <Feed usuarioLogado={usuarioLogado}/>
     );
 }
 

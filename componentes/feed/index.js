@@ -4,48 +4,48 @@ import FeedService from '../../services/FeedService';
 
 const feedService = new FeedService();
 
-export default function Feed ({usuarioOn, idUser}) {
-    const [listaPost, setListaPost] = useState([]);
+export default function Feed ({usuarioLogado, usuarioPerfil}) {
+    const [listaDePostagens, setListaPost] = useState([]);
     
 
     useEffect(() => {
         setListaPost([]);  
         const pegarFeed = async ()=> {
-            const { data } = await feedService.loadPosts(idUser);
-
+            const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
+            
             if (data.length > 0) {
-                const formatedPosts = data.map((postagem) => ({
+                const postagensFormatadas = data.map((postagem) => ({
                         id: postagem._id,
                         usuario: {
-                            id: postagem.idUser,
-                            avatar: postagem.usuario?.avatar,
-                            nome: postagem.usuario?.nome
+                            id: postagem.idUsuario,
+                            nome: postagem?.usuario?.nome || usuarioPerfil?.nome,
+                            avatar: postagem?.usuario?.avatar || usuarioPerfil?.avatar
                         },
-                        fotoPost: postagem.foto,
+                        fotoDoPost: postagem.foto,
                         descricao:postagem.descricao,
                         curtidas: postagem.likes,
-                        comment: postagem.comentarios.map(c => ({
+                        comentarios: postagem.comentarios.map(c => ({
                             nome: c.nome,
                             mensagem: c.comentario
                         })),
                     }));
-                    setListaPost(formatedPosts);    
+                    setListaPost(postagensFormatadas);
                 } else{
                     setListaPost([]);
                 }
             };
             pegarFeed();    
-        },[usuarioOn, idUser]);
-        if (!listaPost.length){
+        },[usuarioLogado, usuarioPerfil]);
+        if (!listaDePostagens.length){
             return null;
         }    
     return(
         <div className='feedContainer largura40pctDesktop'>
-            {listaPost.map((dataPost) => (
+            {listaDePostagens.map((dadosPostagem) => (
                 <Postagem 
-                    key={dataPost.id} 
-                    {...dataPost}
-                    usuarioOn={usuarioOn}
+                    key={dadosPostagem.id} 
+                    {...dadosPostagem}
+                    usuarioLogado={usuarioLogado}
                 />
             ))
                         

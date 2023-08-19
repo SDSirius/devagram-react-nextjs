@@ -18,7 +18,7 @@
         cursor: pointer;
     }
 
-    .btnRightAxn {
+    .btnAcaoDireita {
         border: none;
         background-color: transparent;
         padding: 0%;
@@ -30,7 +30,7 @@
     }
 
     @media screen and (min-width: $desktopBreakpoint) {
-        .cabecalhoComAcoesTextoEsquerda, .btnRightAxn{
+        .cabecalhoComAcoesTextoEsquerda, .btnAcaoDireita {
             font-size: 14px;
         }
     }

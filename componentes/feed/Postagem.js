@@ -15,15 +15,15 @@ const feedService = new FeedService();
 
 export default function Postagem({
     id,
-    usuario: idUser,
-    fotoPost,
+    usuario,
+    fotoDoPost,
     descricao,
-    comment,
-    usuarioOn,
+    comentarios,
+    usuarioLogado,
     curtidas
 }) {
     const [likesPost, setLikesPost] = useState (curtidas);
-    const [commentsPosts, setCommentsPosts] = useState(comment);
+    const [comentariosPostagem, setComentariosPostagem] = useState(comentarios);
     const [showInsertComment, setShowInsertComment]=useState(false);
     const [desclengthNow, setDesclengthNow] = useState(
         descriptionLimitLength
@@ -52,12 +52,12 @@ export default function Postagem({
 
     const comentar = async (comentario) => {
         try {
-            await feedService.addComment(id, comentario);
+            await feedService.adicionarComentario(id, comentario);
             setShowInsertComment(false);
-            setCommentsPosts([
-                ...commentsPosts,
+            setComentariosPostagem([
+                ...comentariosPostagem,
                 {
-                    nome: usuarioOn.nome,
+                    nome: usuarioLogado.nome,
                     mensagem:comentario
                 }
             ]);
@@ -69,20 +69,20 @@ export default function Postagem({
     }
     
     const loggedUserLiked = () => {
-        return likesPost.includes(usuarioOn.id);
+        return likesPost.includes(usuarioLogado.id);
     }
 
-    const alterLike = async () => {
+    const alterarCurtida = async () => {
         try{
-            await feedService.alterLike(id);
+            await feedService.alterarCurtida(id);
             if (loggedUserLiked()) {
                 setLikesPost(
-                    likesPost.filter(idusersLiked => idusersLiked !== usuarioOn.id)
+                    likesPost.filter(idusersLiked => idusersLiked !== usuarioLogado.id)
                 );
             }else{
                 setLikesPost([
                     ...likesPost,
-                    usuarioOn.id
+                    usuarioLogado.id
                 ])
             }
 
@@ -100,15 +100,15 @@ export default function Postagem({
     
     return (
         <div className="postagem">
-            <Link href={`/perfil/${idUser.id}`}>
+            <Link href={`/perfil/${usuario.id}`}>
                 <section className="cabecalhoPost">
-                    <Avatar src={idUser.avatar}/>
-                    <strong>{idUser.nome}</strong>
+                    <Avatar src={usuario.avatar}/>
+                    <strong>{usuario.nome}</strong>
                 </section>
             </Link>
 
-            <div className="fotoPost">
-                <img src={fotoPost} alt="Foto do Post"/>
+            <div className="fotoDoPost">
+                <img src={fotoDoPost} alt="Foto do Post"/>
             </div>
 
             <div className="rodapePost">
@@ -118,7 +118,7 @@ export default function Postagem({
                         alt="icone Curtir"
                         width={20}
                         height={20}
-                        onClick={alterLike}
+                        onClick={alterarCurtida}
                     />
                     <Image
                         src={getImgComent()}
@@ -135,7 +135,7 @@ export default function Postagem({
                 </div>
 
                 <div className="descricaoPost">
-                    <strong className="nomeUsuario">{idUser.nome}</strong>
+                    <strong className="nomeUsuario">{usuario.nome}</strong>
                     <p className='descricao'>
                         {obterDescricao()}
                         {lengthBiggerLimit() &&(
@@ -149,7 +149,7 @@ export default function Postagem({
                 </div>
 
                 <div className="comentsPost">
-                    {commentsPosts.map((comments, i) => (
+                    {comentariosPostagem.map((comments, i) => (
                         <div className="comentario" key={i}>
                             <strong className="nomeUsuario">{comments.nome}</strong>
                             <p className='descricao'>{comments.mensagem}</p>
@@ -159,7 +159,7 @@ export default function Postagem({
             </div>
 
             {showInsertComment &&
-                <FazerComentario comentar={comentar} usuarioOn={usuarioOn} />
+                <FazerComentario comentar={comentar} usuarioLogado={usuarioLogado} />
             }
         </div>
     );

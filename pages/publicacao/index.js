@@ -8,40 +8,40 @@ import Botao from "../../componentes/botao";
 import imagePublicacao from "../../public/images/imagemPublicacao.svg";
 import ImgSetaEsquerda from "../../public/images/setaEsquerda.svg";
 
-const descriptionLimit = 255;
-const descriptionMin = 3;
+const limiteDaDescricao = 255;
+const descricaoMinima = 3;
 const feedService = new FeedService();
 
 function Publicacao(){ 
     const [imagem, setImagem] = useState();
+    const [descricao, setDescricao] = useState('');
     const [inputImage, setInputImage] = useState();
     const [etapaAtual, setEtapaAtual] = useState(1);
-    const [descricao, setDescricao] = useState('');
     const router = useRouter();
 
-    const isFirstStep = () => etapaAtual === 1;
+    const estaNaEtapaUm = () => etapaAtual === 1;
 
-    const getLeftTextHeader = () => {
-        if (isFirstStep() && imagem){
+    const obterTextoEsquerdaCabecalho = () => {
+        if (estaNaEtapaUm() && imagem){
             return "Cancelar";
         }
 
         return "";
     }
 
-    const getRightTextHeader = () => {
+    const obterTextoDireitaCabecalho = () => {
         if (!imagem){
             return '';
         }
-        if (isFirstStep() && imagem){
+        if (estaNaEtapaUm() && imagem){
             return "Avançar";
         }
 
         return "Compartilhar";
     }
 
-    const onLeftAxnClick = () => {
-        if (isFirstStep()){
+    const aoClicarAcaoEsquerdaCabecalho = () => {
+        if (estaNaEtapaUm()){
             inputImage.value = null;
             setImagem(null);
             return;
@@ -50,25 +50,25 @@ function Publicacao(){
         setEtapaAtual(1);
     }
 
-    const onRightAxnClick = () => {
-        if (isFirstStep()){
+    const aoClicarAcaoDireitaCabecalho = () => {
+        if (estaNaEtapaUm()){
             setEtapaAtual(2);
             return;
         }
         publicar();
     }
 
-    const descriptionWrite = (e) => {
+    const escreverDescricao = (e) => {
         const currentValue = e.target.value;
-        if (currentValue.length >= descriptionLimit){
+        if (currentValue.length >= limiteDaDescricao){
             return;
         }
 
         setDescricao(currentValue);
     }
 
-    const getClassNameHeader = ()=> {
-        if (isFirstStep()){
+    const obterClassNameCabecalho = ()=> {
+        if (estaNaEtapaUm()){
             return "etapa1";
         }
 
@@ -82,11 +82,11 @@ function Publicacao(){
                 return;
             }
 
-            const publicacaoPayload = new FormData();
-            publicacaoPayload.append('descricao', descricao);
-            publicacaoPayload.append('file', imagem.arquivo);
+            const corpoPublicacao = new FormData();
+            corpoPublicacao.append('descricao', descricao);
+            corpoPublicacao.append('file', imagem.arquivo);
 
-            await feedService.fazerPublicacao(publicacaoPayload);
+            await feedService.fazerPublicacao(corpoPublicacao);
             router.push('/');
 
         } catch (error) {
@@ -96,7 +96,7 @@ function Publicacao(){
 
     const validarFormulario = () => {
         return (
-            descricao.length >= descriptionMin
+            descricao.length >= descricaoMinima
             && imagem?.arquivo
         );
     }
@@ -104,19 +104,19 @@ function Publicacao(){
     return (
         <div className="paginaPublicacao largura40pctDesktop">
             <CabecalhoComAcoes
-                className={getClassNameHeader()}
-                iconeEsquerda={isFirstStep() ? null : ImgSetaEsquerda}
-                textoEsquerda={getLeftTextHeader()}
-                leftAxnOnClick={onLeftAxnClick}
-                rightElement={getRightTextHeader()}
-                btnRightAxn={onRightAxnClick}
+                className={obterClassNameCabecalho()}
+                iconeEsquerda={estaNaEtapaUm() ? null : ImgSetaEsquerda}
+                textoEsquerda={obterTextoEsquerdaCabecalho()}
+                aoClicarAcaoEsquerda={aoClicarAcaoEsquerdaCabecalho}
+                elementoDireita={obterTextoDireitaCabecalho()}
+                aoClicarElementoDireita={aoClicarAcaoDireitaCabecalho}
                 titulo='Nova Publicação'
             />
 
             <hr className="linhaDivisoria" />
 
             <div className="conteudoPublicacao">
-                {isFirstStep() 
+                {estaNaEtapaUm() 
                 ? (
                     <div className="etapa1">
                         <UploadImagem 
@@ -145,7 +145,7 @@ function Publicacao(){
                                 rows={5}
                                 value={descricao}
                                 placeholder="Escreva aqui sua Legenda..."
-                                onChange={descriptionWrite}
+                                onChange={escreverDescricao}
                                 ></textarea>
 
                         </div>

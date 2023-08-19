@@ -1,7 +1,7 @@
 import HttpService from "./HttpService";
 
 export default class FeedService extends HttpService {
-    async loadPosts(idUsuario) {
+    async carregarPostagens(idUsuario) {
         let url = '/feed';
         if (idUsuario) {
             url += `?id=${idUsuario}`;
@@ -9,15 +9,15 @@ export default class FeedService extends HttpService {
         return this.get(url);
     }
 
-    async addComment(id, comentario){
-        return this.put(`/comments?id=${id}`, {comentario});
+    async adicionarComentario(idPostagem, comentario){
+        return this.put(`/comments?id=${idPostagem}`, {comentario});
     }
 
-    async alterLike(id) {
-        return this.put(`/likes?id=${id}`);
+    async alterarCurtida(idPostagem) {
+        return this.put(`/likes?id=${idPostagem}`);
     }
 
-    async fazerPublicacao(payload){
-        return this.post('/publicacao', payload);
+    async fazerPublicacao(dadosPublicacao){
+        return this.post('/publicacao', dadosPublicacao);
     }
 }

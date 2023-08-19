@@ -7,16 +7,16 @@ import UsuarioService from "../../services/UsuarioService";
 
 const usuarioService = new UsuarioService();
 
-function Perfil( {usuarioOn}) {
-    const [user, setUser ] = useState({});
+function Perfil( {usuarioLogado}) {
+    const [usuario, setUsuario] = useState({});
     const router = useRouter();
 
-    const getProfile = async (usuario) => {
+    const getProfile = async (idUsuario) => {
         try{
             const { data } = await usuarioService.getProfile(
-                isPersonalProfile()
-                ? usuarioOn.id
-                : usuario
+                estaNoPerfilPessoal()
+                ? usuarioLogado.id
+                : idUsuario
             );
             return data;
         }catch (erro){
@@ -24,7 +24,7 @@ function Perfil( {usuarioOn}) {
         }
     };
 
-    const isPersonalProfile = () => {
+    const estaNoPerfilPessoal = () => {
         return router.query.id === "eu";
     }
 
@@ -33,23 +33,22 @@ function Perfil( {usuarioOn}) {
             return;
         }
         const getProfileData = async () =>{
-            const profileData = await getProfile(router.query.id);
-
-            setUser(profileData);
+            const profileData = await getProfile(router.query.id);            
+            setUsuario(profileData);
         }
         getProfileData();
-    }, [usuarioOn, router.query.id]);
+    }, [usuarioLogado, router.query.id]);
 
     return (
         <div className="paginaPerfil">
             <CabecalhoPerfil
-                usuarioOn={usuarioOn}
-                user={user}
-                isPersonalProfile={isPersonalProfile()}
+                usuarioLogado={usuarioLogado}
+                usuario={usuario}
+                estaNoPerfilPessoal={estaNoPerfilPessoal()}
             />
             <Feed 
-                usuarioOn={usuarioOn}
-                idUser={user?._id}
+                usuarioLogado={usuarioLogado}
+                usuarioPerfil={usuario}
             />
         </div> 
     );

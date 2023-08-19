@@ -9,7 +9,7 @@ import imgAvatar from "../../public/images/avatar.svg";
 import imgLimpar from "../../public/images/limpar.svg";
 import UsuarioService from "../../services/UsuarioService";
 
-function EditarPerfil({ usuarioOn }) {
+function EditarPerfil({ usuarioLogado }) {
     const [avatar, setAvatar] = useState();
     const [inputAvatar, setInputAvatar] = useState('');
     const [nome, setNome] = useState();
@@ -18,12 +18,12 @@ function EditarPerfil({ usuarioOn }) {
     const usuarioService = new UsuarioService();
 
     useEffect( () => {
-        if (!usuarioOn){
+        if (!usuarioLogado){
             return;
         }
-        setNome(usuarioOn.nome);
+        setNome(usuarioLogado.nome);
         setAvatar({
-            preview: usuarioOn.avatar
+            preview: usuarioLogado.avatar
         });
     },[])
 
@@ -36,14 +36,14 @@ function EditarPerfil({ usuarioOn }) {
 
             const payload = new FormData();
             payload.append('nome', nome);
-            console.log(payload?.nome);
+        
 
             if (avatar.arquivo) {
-                console.log(avatar.arquivo)
+                
                 payload.append('file', avatar.arquivo);
-                console.log(payload.file);
+                
             }
-            await usuarioService.update(payload);
+            await usuarioService.atualizarPerfil(payload);
             localStorage.setItem("nome", nome);
 
             if (avatar.arquivo) {
@@ -69,10 +69,10 @@ function EditarPerfil({ usuarioOn }) {
             <div className="conteudoPaginaEditarPerfil">
                 <CabecalhoComAcoes
                     titulo={"Editar perfil"}
-                    leftAxnOnClick={onCancelEdit}
+                    aoClicarAcaoEsquerda={onCancelEdit}
                     textoEsquerda="Cancelar"
-                    rightElement={"Concluir"}
-                    btnRightAxn={profileUpdate}
+                    elementoDireita={"Concluir"}
+                    aoClicarElementoDireita={profileUpdate}
                 />
 
                 <hr className="linhaDivisoria" />

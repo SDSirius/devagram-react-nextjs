@@ -11,8 +11,8 @@ import Image from "next/image";
 const usuarioService = new UsuarioService();
 
 export default function CabecalhoPerfil({
-    user,
-    isPersonalProfile
+    usuario,
+    estaNoPerfilPessoal
 })  {
 
     const [seguindo, setSeguindo] = useState( false);
@@ -21,16 +21,16 @@ export default function CabecalhoPerfil({
 
 
     useEffect(() =>{
-        if (!user){
+        if (!usuario){
             return;
         }
-        setSeguindo(user.segueEsseUsuario);
-        setQuantidadeSeguidores(user.seguidores);
+        setSeguindo(usuario.segueEsseUsuario);
+        setQuantidadeSeguidores(usuario.seguidores);
     
-    },[user])
+    },[usuario])
 
-    const getBtnText = () => {        
-        if (isPersonalProfile){
+    const obterTextoBotaoPrincipal = () => {        
+        if (estaNoPerfilPessoal){
             return "Editar Petrfil";
         }
 
@@ -41,20 +41,20 @@ export default function CabecalhoPerfil({
         return 'Seguir';
     }
 
-    const getBtnColor = () => {
-        if ( seguindo || isPersonalProfile ) {
+    const obterCorDoBotaoPrincipal  = () => {
+        if ( seguindo || estaNoPerfilPessoal ) {
             return 'invertido';
         }
 
         return 'primaria';
     }
 
-    const mainButton = async () => {
-        if (isPersonalProfile){
+    const manipularCliqueBotaoPrincipal  = async () => {
+        if (estaNoPerfilPessoal){
             return router.push('/perfil/editar');
         }
         try{
-            await usuarioService.alterFollow(user._id);
+            await usuarioService.alternarSeguir(usuario._id);
             setQuantidadeSeguidores(
                 seguindo 
                     ? (quantidadeSeguidores - 1)
@@ -68,7 +68,7 @@ export default function CabecalhoPerfil({
         
     }
 
-    const leftAxnOnClick = () => {
+    const aoClicarSetaEsquerda = () => {
         router.back();
     }
 
@@ -77,8 +77,8 @@ export default function CabecalhoPerfil({
         router.replace('/');
     }
     
-    const getRightElementOnHeader = () => {
-        if (isPersonalProfile){
+    const obterElementoDireitaCabecalho = () => {
+        if (estaNoPerfilPessoal){
             return (
                 <Image 
                     src={imgLogout}
@@ -95,21 +95,21 @@ export default function CabecalhoPerfil({
     return (
         <div className="cabecalhoPerfil largura40pctDesktop">
             <CabecalhoComAcoes 
-                iconeEsquerda={isPersonalProfile ? null : imgSetaEsquerda}
-                leftAxnOnClick={leftAxnOnClick}
-                titulo={user.nome}
-                rightElement={getRightElementOnHeader()}
+                iconeEsquerda={estaNoPerfilPessoal ? null : imgSetaEsquerda}
+                aoClicarAcaoEsquerda={aoClicarSetaEsquerda}
+                titulo={usuario.nome}
+                elementoDireita={obterElementoDireitaCabecalho()}
             />
 
             <hr className="linhaDivisoria" />
 
             <div className="statusPerfil">
-                <Avatar src={user.avatar}/>
+                <Avatar src={usuario.avatar}/>
                 <div className="informacoesPerfil">
                     <div className="statusContainer">
 
                         <div className="status">
-                            <strong>{user.posts}</strong>
+                            <strong>{usuario.publicacoes}</strong>
                             <span>Publicações</span>
                         </div>
 
@@ -119,16 +119,16 @@ export default function CabecalhoPerfil({
                         </div>
 
                         <div className="status">
-                            <strong>{user.following}</strong>
+                            <strong>{usuario.seguindo}</strong>
                             <span>Seguindo</span>
                         </div>
 
                     </div>
 
                     <Botao 
-                        texto={getBtnText()}
-                        cor={getBtnColor()}
-                        manipularClique={mainButton}
+                        texto={obterTextoBotaoPrincipal()}
+                        cor={obterCorDoBotaoPrincipal ()}
+                        manipularClique={manipularCliqueBotaoPrincipal }
                     />
 
                 </div>

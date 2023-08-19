@@ -1,24 +1,24 @@
 import { useState } from "react";
 import Avatar from "../avatar";
 
-export function FazerComentario({usuarioOn, comentar}){
+export function FazerComentario({usuarioLogado, comentar}){
 
-    const [rows, setRows] = useState(1);
+    const [linhas, setLinhas] = useState(1);
     const [comentario, setComentario ] = useState('');
 
-    const onTyping = (e) => {
-        const inputValue = e.target.value;
-        setComentario(inputValue);
-        setRows(inputValue.length > 0 ? 2 : 1);
+    const aoDigitarComentario = (e) => {
+        const valorInput = e.target.value;
+        setComentario(valorInput);
+        setLinhas(valorInput.length > 0 ? 2 : 1);
     }
 
-    const onKey = (e) => {
+    const aoPressionarQualquerTecla = (e) => {
         if (e.key === 'Enter'){
-            commentHandle()
+            fazerComentario()
         }    
     }
 
-    const commentHandle = () => {
+    const fazerComentario = () => {
         if (comentario.trim().length === 0 || !comentar){
             return;
         }
@@ -29,11 +29,11 @@ export function FazerComentario({usuarioOn, comentar}){
 
     return(
         <div className="containerFazerComentario">
-            <Avatar src={usuarioOn.avatar}/>
+            <Avatar src={usuarioLogado.avatar}/>
             <textarea 
-                rows={rows}
-                onChange={onTyping}
-                onKeyDown={onKey}
+                rows={linhas}
+                onChange={aoDigitarComentario}
+                onKeyDown={aoPressionarQualquerTecla}
                 value={comentario}
                 placeholder="Adicionar Comentário">
             </textarea>
@@ -41,7 +41,7 @@ export function FazerComentario({usuarioOn, comentar}){
             <button
                 type="button"
                 className="btnPublicacao desktop"
-                onClick={commentHandle}
+                onClick={fazerComentario}
             >
                 Publicar
             </button>

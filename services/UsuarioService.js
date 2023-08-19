@@ -28,11 +28,11 @@ export default class UsuarioService extends HttpService {
         return this.post('/cadastro', dados);
     }
     
-    async update (dados){
+    async atualizarPerfil (dados){
         return this.put('/usuario', dados);
     }
 
-    estaAuth() {
+    estaAutenticado() {
         return localStorage.getItem('token') !== null;
     }
 
@@ -44,11 +44,12 @@ export default class UsuarioService extends HttpService {
         return this.get(`/pesquisa?id=${idUsuario}`);
     }
 
-    async alterFollow (id){
-        return this.put(`/follow?id=${id}`)
+    async alternarSeguir (idUsuario){
+        console.log(idUsuario);
+        return this.put(`/follow?id=${idUsuario}`);
     }
 
-    obterInfoUsuarioOn() {
+    obterInfousuarioLogado() {
         return {
             id: localStorage.getItem('id'),
             nome: localStorage.getItem('nome'),

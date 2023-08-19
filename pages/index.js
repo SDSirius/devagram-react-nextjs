@@ -9,7 +9,7 @@ export default function Index() {
 
   useEffect(() => {
     setEstaAuth(
-      usuarioService.estaAuth()
+      usuarioService.estaAutenticado()
     );
   }, []);
 
