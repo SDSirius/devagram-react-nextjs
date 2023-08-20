@@ -1,6 +1,6 @@
-import HttpService from "./HttpService";
+import DaniGramApiService from "./DaniGramApiService";
 
-export default class UsuarioService extends HttpService {
+export default class UsuarioService extends DaniGramApiService {
     async login(credenciais) {
         const { data } = await this.post('/login',credenciais);
 
@@ -45,8 +45,7 @@ export default class UsuarioService extends HttpService {
     }
 
     async alternarSeguir (idUsuario){
-        console.log(idUsuario);
-        return this.put(`/follow?id=${idUsuario}`);
+            return this.put(`/follow?id=${idUsuario}`);
     }
 
     obterInfousuarioLogado() {

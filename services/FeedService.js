@@ -1,6 +1,6 @@
-import HttpService from "./HttpService";
+import DaniGramApiService from "./DaniGramApiService";
 
-export default class FeedService extends HttpService {
+export default class FeedService extends DaniGramApiService {
     async carregarPostagens(idUsuario) {
         let url = '/feed';
         if (idUsuario) {
