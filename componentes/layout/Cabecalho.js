@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import logoHorizontalImg from '../../public/images/logoHorizontal.svg';
-import imagemLupa from '../../public/images/Lupa.svg';
+import imageLupa from '../../public/images/lupa.svg';
 import Navegacao from './Navegacao';
 import ResultadoPesquisa from './ResultadoPesquisa';
 import UsuarioService from '../../services/UsuarioService';
@@ -61,7 +61,7 @@ export default function Cabecalho() {
                 <div className='barraPesquisa'>
                     <div className='containerImagemLupa'>
                         <Image 
-                            src={imagemLupa}
+                            src={imageLupa}
                             alt='Icone da Lupa'
                             layout='fill'
                         />

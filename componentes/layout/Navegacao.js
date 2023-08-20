@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import imgHomeAtivo from '../../public/images/HomeAtivo.svg';
-import imgHomeCinza from '../../public/images/HomeCinza.svg';
+import imgHomeAtivo from '../../public/images/homeAtivo.svg';
+import imgHomeCinza from '../../public/images/homeCinza.svg';
 import imgPublicacaoAtivo from '../../public/images/publicacaoAtivo.svg';
 import imgPublicacaoCinza from '../../public/images/publicacaoCinza.svg';
 import imgUsuarioAtivo from '../../public/images/usuarioAtivo.svg';
