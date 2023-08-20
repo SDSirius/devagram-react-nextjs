@@ -15,7 +15,7 @@ import imagemAvatar from '../../public/images/avatar.svg';
 import { Router } from "next/router";
 
 const usuarioService = new UsuarioService();
-const router = new Router();
+const router = useRouter();
 
 export default function Cadastro() {
 
