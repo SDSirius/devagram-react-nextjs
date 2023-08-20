@@ -12,8 +12,10 @@ import imagemEnvelope from '../../public/images/envelope.svg';
 import imagemChave from '../../public/images/chave.svg';
 import imagemLogo from '../../public/images/logo.svg';
 import imagemAvatar from '../../public/images/avatar.svg';
+import { Router } from "next/router";
 
 const usuarioService = new UsuarioService();
+const router = new Router();
 
 export default function Cadastro() {
 
@@ -53,6 +55,8 @@ export default function Cadastro() {
 
             await usuarioService.cadastro(corpoReqCadastro);
             alert("Sucesso!");
+            router.push('/');
+            
 
         } catch(error) {
             console.log(error);
