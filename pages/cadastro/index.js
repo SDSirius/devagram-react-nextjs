@@ -15,16 +15,16 @@ import imagemAvatar from '../../public/images/avatar.svg';
 import { useRouter } from "next/router";
 
 const usuarioService = new UsuarioService();
-const router = useRouter();
 
 export default function Cadastro() {
-
+    
     const [imagem, setImagem] = useState(null);
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setConfirmaSenha] = useState("");
     const [estaSubmetendo, setEstaSubmetendo] = useState(false);
+    const router = useRouter();
 
     const validarFormulario = () => {
         return(
